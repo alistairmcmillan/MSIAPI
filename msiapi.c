@@ -57,12 +57,10 @@ int __cdecl main(int argc, const char* argv[])
     // Check whether we're being run from a Command Prompt
     // or from elsewhere. We want to pause if it's the latter.
     hStdOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-    if (!GetConsoleScreenBufferInfo(hStdOutput, &csbi))
+    if (GetConsoleScreenBufferInfo(hStdOutput, &csbi))
     {
-        printf("GetConsoleScreenBufferInfo failed: %d\n", GetLastError());
-        return;
-    }
-    bUsePause = ((!csbi.dwCursorPosition.X) && (!csbi.dwCursorPosition.Y));
+	    bUsePause = ((!csbi.dwCursorPosition.X) && (!csbi.dwCursorPosition.Y));
+	}
 
     // Enumerate list of products
     // Loop until call to MsiEnumProductsEx fails
